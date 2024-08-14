@@ -1,0 +1,31 @@
+{
+    "workbench.colorTheme": "Andromeda Colorizer",
+    "workbench.activityBar.location": "top",
+    "editor.minimap.enabled": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.wordWrap": "on",
+    "terminal.integrated.defaultProfile.windows": "Windows PowerShell",
+    "terminal.integrated.shellIntegration.enabled": false,
+    "github.copilot.editor.enableAutoCompletions": false,
+    "workbench.settings.applyToAllProfiles": [
+        "github.copilot.editor.enableAutoCompletions",
+        "window.zoomLevel",
+        "editor.formatOnSave",
+        "editor.formatOnSaveMode",
+        "editor.guides.bracketPairs",
+        "editor.linkedEditing",
+        "breadcrumbs.enabled"
+    ],
+    "window.zoomLevel": -1,
+    "settingsSync.ignoredSettings": [
+        "-window.zoomLevel"
+    ],
+    "editor.formatOnSave": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.bracketSpacing": false,
+    "editor.guides.bracketPairs": true,
+    "editor.linkedEditing": true,
+    "breadcrumbs.enabled": false
+}
