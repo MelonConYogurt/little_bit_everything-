@@ -78,6 +78,7 @@ def menu_ventas():
     while True:
         print()
         print("\n--- Menú de Ventas ---")
+        print()
         print("1. Agregar producto")
         print("2. Eliminar producto")
         print("3. Editar producto")
@@ -137,11 +138,15 @@ def menu_ventas():
 
         elif opcion == "5":
             if not ventas:
+                print()
                 print("Aun no se han registrado productos")
+                print()
                 return
             else:
                 total = totalizar_compra(inventario, ventas)
+                print()
                 print("\n--- Resumen de la Venta ---")
+                print()
                 for venta in ventas:
                     print(f"Producto: {venta['nombre']}, id: {venta["id"]}, Cantidad: {venta['cantidad']}")
                 print(f"Total de la venta: ${total:.2f}")
@@ -155,6 +160,7 @@ def menu():
     while True:
         print()
         print("\n--- Menú de la Registradora de Ventas ---")
+        print()
         print("1. Consultar un producto por ID")
         print("2. Actualizar un producto existente")
         print("3. Registrar un nuevo producto")
@@ -196,12 +202,16 @@ def menu():
             menu_ventas()
             
         elif opcion == "5":
+            print()
             print("Inventario completo:")
+            print()
             for producto in consultar_inventario(inventario):
                 print(producto)
                 
         elif opcion == "6":
+            print()
             print("Registro de ventas:")
+            print()
             if registro_ventas:
                 for i, venta in enumerate(registro_ventas, 1):
                     print(f"\n--- Venta {i} ---")
