@@ -16,6 +16,10 @@ class Arbol:
                 return False
             
             if hijos:
+                for hijo in hijos:
+                    if hijo == nombre or hijo == pareja:
+                        print("Tu mismo o tu pareja no puede ser tu hijo")
+                        return False
                 if self.verificar_hijos(hijos):
                     print(f"Error: Uno o más hijos ya existen en el sistema.")
                     return False
@@ -69,7 +73,6 @@ class Arbol:
     def eliminar_persona(self, nombre: str):
         try:
             persona_a_eliminar = next((person for person in self.data if person["nombre"] == nombre), None)
-            print(persona_a_eliminar)
             if persona_a_eliminar:
                 self.data.remove(persona_a_eliminar)
                 print(f"Persona '{nombre}' eliminada del árbol familiar.")
@@ -81,11 +84,54 @@ class Arbol:
             print(f"Error al eliminar la persona: {e}")
             return False
 
+    def editar_persona(self, nombre: str, pareja: str = None, hijos: list[str] = None):
+        try:
+            persona_para_actualizar = next((person for person in self.data if person["nombre"] == nombre), None)
+            
+            if not persona_para_actualizar:
+                print(f"Error: La persona con el nombre '{nombre}' no se encuentra en el árbol.")
+                return False
+            
+            if pareja:
+                if pareja == nombre:
+                    print("La pareja debe ser diferente a tu mismo nombre.")
+                    return False
+                elif self.verificar_pareja(pareja) >= 1:
+                    print(f"Error: La pareja '{pareja}' ya está asociada a más de una persona.")
+                    return False
+
+            if hijos:
+                persona_para_actualizar['hijos'] = []
+                for hijo in hijos:
+                    if hijo == nombre or hijo == pareja:
+                        print("Tu mismo o tu pareja no puede ser tu hijo.")
+                        return False
+                if self.verificar_hijos(hijos):
+                    print(f"Error: Uno o más hijos ya existen en el sistema.")
+                    return False
+                
+            persona_para_actualizar['pareja'] = pareja if pareja else persona_para_actualizar['pareja']
+            persona_para_actualizar['hijos'] = hijos if hijos else persona_para_actualizar['hijos']
+
+            print(f"Datos de la persona '{nombre}' actualizados exitosamente.")
+            print(f"Pareja: {persona_para_actualizar['pareja'] if persona_para_actualizar['pareja'] else 'N/A'}")
+            print(f"Hijos: {', '.join(persona_para_actualizar['hijos']) if persona_para_actualizar['hijos'] else 'Ninguno'}")
+
+            return True
+        except Exception as e:
+                    print(f"Error al eliminar la persona: {e}")
+                    return False
 
 if __name__ == '__main__':
-    ab = Arbol()
-    ab.nueva_persona(nombre="Juan carlos lopera", pareja="Maria del rosario", hijos=["Juan carlos", "Juan miguel"])
-    ab.nueva_persona(nombre="Maria camila gonzales", pareja="Juan fernando", hijos=["Juan carlos", "Juan miguel"])
-    ab.nueva_persona(nombre="Alejandro")
+    try:
+        ab = Arbol()
+        ab.nueva_persona(nombre="Juan Carlos Lopera", pareja="Maria del Rosario", hijos=["Juan Carlos", "Juan Miguel"])
+        ab.nueva_persona(nombre="Maria Camila Gonzales", pareja="Juan Fernando", hijos=["Juan Carlos", "Juan Miguel"])
+        ab.nueva_persona(nombre="Alejandro")
 
-    ab.eliminar_persona("Alejandro")
+        ab.eliminar_persona("Alejandro")
+        
+        # Ejemplo de edición
+        ab.editar_persona(nombre="Juan Carlos Lopera", pareja="Ana Maria", hijos=["Juan Carlos", "Juan Miguel", "Sofia"])
+    except Exception as e:
+        print(f"Error al eliminar la persona: {e}")
