@@ -2,7 +2,6 @@ class arbol():
     def __init__(self) -> list:
         self.data = []
         self.padres = []
-        self.hijos = []
 
     def nueva_persona(self, nombre: str, pareja: str | None, hijos: list[str] | None): 
         try:
@@ -19,7 +18,7 @@ class arbol():
                     print(f"Error: Ya el hijo existe en el sistema.")
                     return False
                 else:
-                    self.padres.append(nombre)
+                    self.padres.append({"padre": nombre, "madre": "" })
 
             persona = {
                 "id": len(self.data),
@@ -68,6 +67,16 @@ class arbol():
                 if self.verificar_existencia(hijo):
                     print(f"Error: El hijo '{hijo}' ya existe en el sistema.")
                     return False
+                else:
+                    self.verificar_padres(hijo):
+        except Exception as e:
+            print(e)
+
+
+    def verificar_padres(self, hijo):
+        try:
+
+            pass           
         except Exception as e:
             print(e)
 
