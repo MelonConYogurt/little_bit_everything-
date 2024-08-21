@@ -27,9 +27,36 @@ class EventosOlimpicos():
 
 
     def simular_evento(self):
-        cantidad_eventos = len(self.eventos_list)
+        cantidad_participantes = len(self.participantes_list)
+        numero_participantes_aleatorio = random.randint(3, cantidad_participantes)
+        participantes_evento_actual = [] 
 
-        participantes = [] 
+        for evento in self.eventos_list:
+
+            for _ in range (numero_participantes_aleatorio):
+                participantes_elegidos = []
+
+                numero_random = random.randint(0, cantidad_participantes)
+                participante_elegido =  self.participantes_list[numero_random]
+                participantes_elegidos.append(participante_elegido["nombre"])
+
+                if participante_elegido["nombre"] in participantes_elegidos:
+                    continue
+                else:
+                    participantes_evento_actual.append({
+                        "participante": participante_elegido,
+                        "puntaje": 0
+                    })
+
+            rondas = random.randint(1, 5)
+
+            for ronda in range(1, rondas + 1):
+                print(f"Ronda numero {ronda}")
+                for participante in participantes_evento_actual:
+                    puntaje = random.randint(0, 10)
+                    participante["puntaje"] = puntaje
+
+
 
     def asignar_medallas():
         pass
