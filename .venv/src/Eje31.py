@@ -100,28 +100,32 @@ class EventosOlimpicos:
        
     def mostrar_ranking(self):
         print("Ranking del medallero olimpico:")
-        print(self.ranking)
+        self.ranking.sort(key= lambda x: x['numero de medallas'], reverse=True)
+        for pais in self.ranking:
+            print(f"Pais: {pais['pais']}, numero de medellas: {pais['numero de medallas']}")
 
 
 if __name__ == "__main__":
-    ev = EventosOlimpicos()
+    try:
+        ev = EventosOlimpicos()
 
-    ev.registrar_participante("Juan", "Argentina")
-    ev.registrar_participante("Luis", "México")
-    ev.registrar_participante("Pedro", "España")
-    ev.registrar_participante("Ana", "Brasil")
-    ev.registrar_participante("miguel", "México")
-    ev.registrar_participante("catalina", "España")
-    ev.registrar_participante("mariana", "Brasil")
-    ev.registrar_participante("angel", "México")
-    ev.registrar_participante("simon", "Argentina")
-    ev.registrar_participante("diego", "Argentina")
+        ev.registrar_participante("Juan", "Argentina")
+        ev.registrar_participante("Luis", "México")
+        ev.registrar_participante("Pedro", "España")
+        ev.registrar_participante("Ana", "Brasil")
+        ev.registrar_participante("miguel", "México")
+        ev.registrar_participante("catalina", "España")
+        ev.registrar_participante("mariana", "Brasil")
+        ev.registrar_participante("angel", "México")
+        ev.registrar_participante("simon", "Argentina")
+        ev.registrar_participante("diego", "Argentina")
 
-    ev.registrar_nuevo_evento("100m Carreras")
-    # ev.registrar_nuevo_evento("Salto de Longitud")
-    # ev.registrar_nuevo_evento("Lanzamiento de Jabalina")
-    # ev.registrar_nuevo_evento("Natación 200m")
-    
-    ev.simular_evento()
+        ev.registrar_nuevo_evento("100m Carreras")
+        ev.registrar_nuevo_evento("Salto de Longitud")
+        ev.registrar_nuevo_evento("Lanzamiento de Jabalina")
+        ev.registrar_nuevo_evento("Natación 200m")
+        
+        ev.simular_evento()
 
-    pass
+    except Exception as e:
+        print(e)
