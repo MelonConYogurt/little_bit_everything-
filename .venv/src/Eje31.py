@@ -80,9 +80,13 @@ class EventosOlimpicos:
     def asignar_medallas(self, participantes: list):
         if len(participantes) >= 3:
             participantes.sort(key=lambda row: row["puntaje"], reverse=True)
-            participantes[0]["medalla"] = "oro"
-            participantes[1]["medalla"] = "plata"
-            participantes[2]["medalla"] = "bronce"
+            medallas = ["oro", "plata", "bronce"]
+            for i in range (3):
+                participante = participantes[i]
+                participante['medalla'] = medallas[i]
+                for pais in self.ranking:
+                    if pais['pais'] == participante['pais']: pais['numero de medallas'] += 1
+                
             self.ganadores_list.extend([participantes[0], participantes[1], participantes[2]])
         else:
             print("No hay suficientes participantes para asignar medallas.")
