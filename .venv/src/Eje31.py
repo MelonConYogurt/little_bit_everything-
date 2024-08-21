@@ -84,7 +84,6 @@ class EventosOlimpicos:
             self.ganadores_list.extend([participantes[0], participantes[1], participantes[2]])
 
             print("Ganadores:")
-            print(self.ganadores_list)
             for ganador in self.ganadores_list:
                 print(f"{ganador['nombre']} - Medalla: {ganador['medalla']}")
         else:
