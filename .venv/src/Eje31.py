@@ -6,7 +6,7 @@ class EventosOlimpicos:
         self.eventos_list = []
         self.participantes_list = []
         self.ganadores_list = []
-        self.ranking_list = []
+        self.ranking = []
 
     def registrar_nuevo_evento(self, nombre_evento: str):
         nuevo_evento = {
@@ -23,6 +23,13 @@ class EventosOlimpicos:
             "nombre": nombre,
             "pais": pais
         }
+        for row in self.ranking:
+            if row["pais"] != participante_nuevo["pais"]:
+                self.ranking.append({
+                    "Pais": participante_nuevo["pais"],
+                    "numero medallas": 0,
+                })
+
         self.participantes_list.append(participante_nuevo)
         print(f"Participante agregado con éxito: {participante_nuevo['nombre']}, representando: {participante_nuevo['pais']}")
 
@@ -73,8 +80,6 @@ class EventosOlimpicos:
             
             self.asignar_medallas(participantes_evento_actual)
 
-        
-
     def asignar_medallas(self, participantes: list):
         if len(participantes) >= 3:
             participantes.sort(key=lambda row: row["puntaje"], reverse=True)
@@ -82,18 +87,20 @@ class EventosOlimpicos:
             participantes[1]["medalla"] = "plata"
             participantes[2]["medalla"] = "bronce"
             self.ganadores_list.extend([participantes[0], participantes[1], participantes[2]])
-
-            print("Ganadores:")
-            for ganador in self.ganadores_list:
-                print(f"{ganador['nombre']} - Medalla: {ganador['medalla']}")
         else:
             print("No hay suficientes participantes para asignar medallas.")
+        self.mostrar_ganadores()
 
-    def mostrar_ganadores():
-        pass
+    def mostrar_ganadores(self):
+        print("Ganadores:")
+        for ganador in self.ganadores_list:
+            print(f"{ganador['nombre']} - Medalla: {ganador['medalla']}")
+        self.mostrar_ranking()
+       
+    def mostrar_ranking(self):
+        print("Ranking del medallero olimpico:")
+        print(self.ranking)
 
-    def mostrar_ranking():
-        pass
 
     def menu():
         while True:
@@ -120,4 +127,5 @@ if __name__ == "__main__":
     # ev.registrar_nuevo_evento("Natación 200m")
     
     ev.simular_evento()
+
     pass
