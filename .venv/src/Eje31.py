@@ -23,13 +23,11 @@ class EventosOlimpicos:
             "nombre": nombre,
             "pais": pais
         }
-        for row in self.ranking:
-            if row["pais"] != participante_nuevo["pais"]:
-                self.ranking.append({
-                    "Pais": participante_nuevo["pais"],
-                    "numero medallas": 0,
-                })
-
+        if not any(row['pais'] == participante_nuevo['pais'] for row in self.ranking):
+            self.ranking.append({
+                "pais": participante_nuevo['pais'],
+                "numero de medallas": 0,
+            })
         self.participantes_list.append(participante_nuevo)
         print(f"Participante agregado con éxito: {participante_nuevo['nombre']}, representando: {participante_nuevo['pais']}")
 
@@ -48,7 +46,7 @@ class EventosOlimpicos:
             participante["medalla"] = None
             participante["fecha_competencia"] = datetime.datetime.now()
             tabla_puntaje.append({
-                "nombre_participante": participante["nombre"],
+                "nombre_participante": participante['nombre'],
                 "puntaje_participante": 0,
             })
 
@@ -77,7 +75,6 @@ class EventosOlimpicos:
             print("Tabla final de puntajes:")
             for registro in tabla_puntaje:
                 print(f"Participante: {registro['nombre_participante']}, Puntaje Total: {registro['puntaje_participante']}")
-            
             self.asignar_medallas(participantes_evento_actual)
 
     def asignar_medallas(self, participantes: list):
@@ -100,11 +97,6 @@ class EventosOlimpicos:
     def mostrar_ranking(self):
         print("Ranking del medallero olimpico:")
         print(self.ranking)
-
-
-    def menu():
-        while True:
-            print()
 
 
 if __name__ == "__main__":
