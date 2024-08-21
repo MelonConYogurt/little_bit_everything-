@@ -16,7 +16,7 @@ class EventosOlimpicos:
             "ganadores": []
         }
         self.eventos_list.append(nuevo_evento)
-        print(f"Nuevo evento creado con éxito: id:{nuevo_evento['id']}, evento: {nuevo_evento['nombre_evento']}")
+        print(f"\n--- Evento Registrado ---\nID: {nuevo_evento['id']}\nNombre: {nuevo_evento['nombre_evento']}\n")
 
     def registrar_participante(self, nombre: str, pais: str):
         participante_nuevo = {
@@ -29,12 +29,12 @@ class EventosOlimpicos:
                 "numero de medallas": 0,
             })
         self.participantes_list.append(participante_nuevo)
-        print(f"Participante agregado con éxito: {participante_nuevo['nombre']}, representando: {participante_nuevo['pais']}")
+        print(f"\n--- Participante Registrado ---\nNombre: {participante_nuevo['nombre']}\nPaís: {participante_nuevo['pais']}\n")
 
     def simular_evento(self):
         cantidad_participantes = len(self.participantes_list)
         if cantidad_participantes < 3:
-            print("No hay suficientes participantes para simular el evento.")
+            print("\nNo hay suficientes participantes para simular el evento.\n")
             return
 
         tabla_puntaje = []
@@ -50,60 +50,66 @@ class EventosOlimpicos:
                 "puntaje_participante": 0,
             })
 
-        print(f"Número de participantes: {numero_participantes_aleatorio}")
+        print(f"\n--- Simulación de Evento ---\nNúmero de participantes: {numero_participantes_aleatorio}")
+
         numero_eventos_aleatorio = random.randint(1, len(self.eventos_list))
         eventos = random.sample(self.eventos_list, numero_eventos_aleatorio)
-        print(f"Número de eventos a celebrar: {numero_eventos_aleatorio}")
+        print(f"Número de eventos a celebrar: {numero_eventos_aleatorio}\n")
 
         for evento in eventos:
             evento["participantes"] = participantes_evento_actual
             print(f"Evento en proceso: {evento['nombre_evento']}")
             rondas = random.randint(1, 5)
-            print(f"Se harán un total de {rondas} rondas para este evento")
+            print(f"Se harán un total de {rondas} rondas para este evento\n")
+
             for ronda in range(1, rondas + 1):
-                print(f"Empieza la Ronda número: {ronda}")
+                print(f"--------- Ronda número: {ronda} ---------")
                 for participante in participantes_evento_actual:
                     puntaje = random.randint(0, 10)
                     participante["puntaje"] += puntaje
-                    print(f"El participante: {participante['nombre']}, ha obtenido un puntaje de: {puntaje}")
+                    print(f"{participante['nombre']} ha obtenido un puntaje de: {puntaje}")
 
                     for registro in tabla_puntaje:
                         if registro["nombre_participante"] == participante["nombre"]:
                             registro["puntaje_participante"] = participante["puntaje"]
                             break
+                print()
 
-            print("Tabla final de puntajes:")
+            print("\n--- Tabla Final de Puntajes ---")
             for registro in tabla_puntaje:
                 print(f"Participante: {registro['nombre_participante']}, Puntaje Total: {registro['puntaje_participante']}")
+            print()
             self.asignar_medallas(participantes_evento_actual)
 
     def asignar_medallas(self, participantes: list):
         if len(participantes) >= 3:
             participantes.sort(key=lambda row: row["puntaje"], reverse=True)
             medallas = ["oro", "plata", "bronce"]
-            for i in range (3):
+            for i in range(3):
                 participante = participantes[i]
                 participante['medalla'] = medallas[i]
                 for pais in self.ranking:
-                    if pais['pais'] == participante['pais']: pais['numero de medallas'] += 1
-                
+                    if pais['pais'] == participante['pais']:
+                        pais['numero de medallas'] += 1
+
             self.ganadores_list.extend([participantes[0], participantes[1], participantes[2]])
         else:
-            print("No hay suficientes participantes para asignar medallas.")
+            print("\nNo hay suficientes participantes para asignar medallas.\n")
         self.mostrar_ganadores()
 
     def mostrar_ganadores(self):
-        print("Ganadores:")
+        print("\n--- Ganadores ---")
         for ganador in self.ganadores_list:
             print(f"{ganador['nombre']} - Medalla: {ganador['medalla']}")
+        print()
         self.mostrar_ranking()
        
     def mostrar_ranking(self):
-        print("Ranking del medallero olimpico:")
-        self.ranking.sort(key= lambda x: x['numero de medallas'], reverse=True)
+        print("--- Ranking del Medallero Olímpico ---")
+        self.ranking.sort(key=lambda x: x['numero de medallas'], reverse=True)
         for pais in self.ranking:
-            print(f"Pais: {pais['pais']}, numero de medellas: {pais['numero de medallas']}")
-
+            print(f"País: {pais['pais']}, Número de Medallas: {pais['numero de medallas']}")
+        print()
 
 if __name__ == "__main__":
     try:
@@ -113,12 +119,12 @@ if __name__ == "__main__":
         ev.registrar_participante("Luis", "México")
         ev.registrar_participante("Pedro", "España")
         ev.registrar_participante("Ana", "Brasil")
-        ev.registrar_participante("miguel", "México")
-        ev.registrar_participante("catalina", "España")
-        ev.registrar_participante("mariana", "Brasil")
-        ev.registrar_participante("angel", "México")
-        ev.registrar_participante("simon", "Argentina")
-        ev.registrar_participante("diego", "Argentina")
+        ev.registrar_participante("Miguel", "México")
+        ev.registrar_participante("Catalina", "España")
+        ev.registrar_participante("Mariana", "Brasil")
+        ev.registrar_participante("Ángel", "México")
+        ev.registrar_participante("Simón", "Argentina")
+        ev.registrar_participante("Diego", "Argentina")
 
         ev.registrar_nuevo_evento("100m Carreras")
         ev.registrar_nuevo_evento("Salto de Longitud")
@@ -128,4 +134,4 @@ if __name__ == "__main__":
         ev.simular_evento()
 
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
