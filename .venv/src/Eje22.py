@@ -2,7 +2,7 @@ from datetime import datetime
 
 # Lista de estudiantes
 estudiantes = [
-    {'nombre': 'Ana', 'fecha_nacimiento': '2000-05-15', 'calificaciones': [9.5, 8.7, 11.0]},
+    {'nombre': 'Ana', 'fecha_nacimiento': '2000-05-15', 'calificaciones': [9.5, 10.7, 11.0]},
     {'nombre': 'Luis', 'fecha_nacimiento': '1998-11-22', 'calificaciones': [7.5, 6.0, 8.0]},
     {'nombre': 'Pedro', 'fecha_nacimiento': '2001-02-01', 'calificaciones': [10.0, 9.0, 8.5]},
     {'nombre': 'Laura', 'fecha_nacimiento': '2000-12-30', 'calificaciones': [6.5, 7.0, 8.0]},
@@ -23,8 +23,20 @@ def mejores_estudiantes(estudiantes: list)-> list:
 def ordenar_por_nacimiento(estudiantes: list)-> list:
     return list(sorted(estudiantes, key=lambda estudiante : datetime.strptime(estudiante['fecha_nacimiento'], "%Y-%m-%d"), reverse=True))
 
-def calificacion_max(estudiante: list)-> float:
-    return max(estudiantes, key=lambda estudiante: estudiante['calificaciones'])
+# def calificacion_max(estudiantes: list)-> float:
+#     estudiante_con_notas_altas = max(estudiantes, key=lambda estudiante: estudiante['calificaciones'])
+#     return max(estudiante_con_notas_altas['calificaciones'])
+
+# def calificacion_max(estudiantes: list) -> float:
+#     estudiante_con_notas_altas = max(estudiantes, key=lambda estudiante: max(estudiante['calificaciones']))
+#     return max(estudiante_con_notas_altas['calificaciones'])
+
+def calificacion_max(estudiantes: list) -> float:
+    todas_calificaciones = [calificacion for estudiante in estudiantes for calificacion in estudiante['calificaciones']]
+    print(todas_calificaciones)
+    return max(todas_calificaciones)
+
+
 
 if __name__ == "__main__":
     print("Promedio de calificaciones:", promedio_calificaciones(estudiantes))
