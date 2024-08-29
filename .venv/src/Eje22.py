@@ -27,16 +27,15 @@ def ordenar_por_nacimiento(estudiantes: list)-> list:
 #     estudiante_con_notas_altas = max(estudiantes, key=lambda estudiante: estudiante['calificaciones'])
 #     return max(estudiante_con_notas_altas['calificaciones'])
 
-# def calificacion_max(estudiantes: list) -> float:
-#     estudiante_con_notas_altas = max(estudiantes, key=lambda estudiante: max(estudiante['calificaciones']))
-#     return max(estudiante_con_notas_altas['calificaciones'])
-
 def calificacion_max(estudiantes: list) -> float:
-    todas_calificaciones = [calificacion for estudiante in estudiantes for calificacion in estudiante['calificaciones']]
-    print(todas_calificaciones)
-    return max(todas_calificaciones)
+    estudiante_con_notas_altas = max(estudiantes, key=lambda estudiante: max(estudiante['calificaciones']))
+    return max(estudiante_con_notas_altas['calificaciones'])
 
-
+# def calificacion_max(estudiantes: list) -> float:
+    
+#     todas_calificaciones = [calificacion for estudiante in estudiantes for calificacion in estudiante['calificaciones']]
+#     print(todas_calificaciones)
+#     return max(todas_calificaciones)
 
 if __name__ == "__main__":
     print("Promedio de calificaciones:", promedio_calificaciones(estudiantes))
