@@ -2,10 +2,11 @@ from datetime import datetime
 
 # Lista de estudiantes
 estudiantes = [
-    {'nombre': 'Ana', 'fecha_nacimiento': '2000-05-15', 'calificaciones': [9.5, 8.7, 10.0]},
+    {'nombre': 'Ana', 'fecha_nacimiento': '2000-05-15', 'calificaciones': [9.5, 8.7, 11.0]},
     {'nombre': 'Luis', 'fecha_nacimiento': '1998-11-22', 'calificaciones': [7.5, 6.0, 8.0]},
     {'nombre': 'Pedro', 'fecha_nacimiento': '2001-02-01', 'calificaciones': [10.0, 9.0, 8.5]},
     {'nombre': 'Laura', 'fecha_nacimiento': '2000-12-30', 'calificaciones': [6.5, 7.0, 8.0]},
+    {'nombre': 'Melon', 'fecha_nacimiento': '2003-11-22', 'calificaciones': [10, 10, 10]},
 ]
 
 def calcular_promedio(calificaciones:list)-> float:
@@ -19,6 +20,17 @@ def promedio_calificaciones(estudiantes: list)-> list:
 def mejores_estudiantes(estudiantes: list)-> list:
     return list(filter(lambda estudiante: calcular_promedio(estudiante['calificaciones']) >= 9, estudiantes))
 
+def ordenar_por_nacimiento(estudiantes: list)-> list:
+    return list(sorted(estudiantes, key=lambda estudiante : datetime.strptime(estudiante['fecha_nacimiento'], "%Y-%m-%d"), reverse=True))
+
+def calificacion_max(estudiante: list)-> float:
+    return max(estudiantes, key=lambda estudiante: estudiante['calificaciones'])
+
 if __name__ == "__main__":
     print("Promedio de calificaciones:", promedio_calificaciones(estudiantes))
+    print()
     print("Mejores estudaintes:", mejores_estudiantes(estudiantes))
+    print()
+    print("Ordenado por fecha", ordenar_por_nacimiento(estudiantes))
+    print()
+    print("Calificaciones mas alta", calificacion_max(estudiantes))
