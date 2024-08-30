@@ -18,5 +18,5 @@ def repartir_anillos(anillos: int)-> str:
                         return f"inpar:{inpar}, par: {par}, primo: {primo}"
     return f"No hay reparto posible con la cantida de anillos {anillos}"
                     
-if __name__ == '__main__': print(repartir_anillos(123))
+if __name__ == '__main__': print(repartir_anillos(5453453543453434534531342311111111))
     
