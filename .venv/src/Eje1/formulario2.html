@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información del Empleado</title>
+    <style>
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>INFORMACIÓN DEL EMPLEADO</h2>
+    <form id="empleadoForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" pattern="^\S.*" required>
+
+        <label for="estatura">Estatura:</label>
+        <input type="number" id="estatura" name="estatura" step="0.01" required>
+
+        <label>Sexo:</label>
+        <input type="radio" id="sexoM" name="sexo" value="M" required> M
+        <input type="radio" id="sexoF" name="sexo" value="F" required> F
+
+        <label for="salario">Salario:</label>
+        <input type="number" id="salario" name="salario" step="0.01" required>
+
+        <label for="diasTrabajados">Días Trabajados:</label>
+        <input type="number" id="diasTrabajados" name="diasTrabajados" required>
+
+        <label for="email">e-Mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="lenguaje">Lenguaje preferido:</label>
+        <select id="lenguaje" name="lenguaje" required>
+            <option value="" disabled selected>Seleccione...</option>
+            <option value="Java">Java</option>
+            <option value="C++">C++</option>
+            <option value="Python">Python</option>
+            <option value="Ruby">Ruby</option>
+            <option value="C#">C#</option>
+        </select>
+
+        <label for="salarioPagar">Salario a Pagar:</label>
+        <input type="text" id="salarioPagar" name="salarioPagar" readonly>
+
+        <button type="button" onclick="calcularSalario()">Calcular</button>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        function calcularSalario() {
+            const salario = parseFloat(document.getElementById('salario').value);
+            const diasTrabajados = parseInt(document.getElementById('diasTrabajados').value);
+
+            if (!isNaN(salario) && !isNaN(diasTrabajados)) {
+                const salarioPagar = (salario / 30) * diasTrabajados;
+                document.getElementById('salarioPagar').value = salarioPagar.toFixed(2);
+            } else {
+                alert("Por favor, ingrese valores válidos para el salario y los días trabajados.");
+            }
+        }
+    </script>
+</body>
+</html>
