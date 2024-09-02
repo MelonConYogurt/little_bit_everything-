@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 700px;
+        margin: auto;
+    }
+
+    .formulario {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 20px;
+        width: 80%;
+        align-self: center;
+    }
+
+    .celdas {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    label {
+        width: 20%;
+    }
+
+    input {
+        padding: 10px;
+        border-radius: 8px;
+        flex-grow: 1;
+        width: 100%;
+    }
+
+    .botones {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    button {
+        padding: 10px;
+        margin: 5px;
+        border-radius: 10px;
+        border: none;
+    }
+
+    button:hover {
+        background-color: gray;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <section>
+        <img src="./Screenshot 2024-09-02 162836.png" alt="">
+        <form action="" onsubmit="" class="formulario">
+
+            <h2>Datos del estudiante</h2>
+            <div class="celdas">
+                <label for="codigo">Código</label>
+                <input type="number" name="codigo" id="codigo" placeholder="Ingrese su código" required>
+            </div>
+
+            <div class="celdas">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre" required>
+            </div>
+
+            <div class="celdas">
+                <label for="direccion">Dirección</label>
+                <input type="text" name="direccion" id="direccion" placeholder="Ingrese su dirección" required>
+            </div>
+            <div class="celdas">
+                <label for="telefono">Teléfono</label>
+                <input type="number" name="telefono" id="telefono" placeholder="Ingrese su teléfono" required>
+            </div>
+
+            <div class="celdas">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Ingrese su email" required>
+            </div>
+
+            <div class="botones">
+                <button type="submit">Enviar</button>
+                <button type="reset">Borrar</button>
+            </div>
+
+        </form>
+
+    </section>
+
+</body>
+
+</html>
