@@ -145,7 +145,6 @@
             if (!isNaN(salario) && !isNaN(diasTrabajados)) {
                 const salarioPagar = (salario / 30) * diasTrabajados;
                 document.getElementById('salarioPagar').value = salarioPagar.toFixed(2);
-                alert(`Datos obtenidos correctamente, salario a pagar: ${salario}`)
             } else {
                 alert("Por favor, ingrese valores válidos para el salario y los días trabajados.");
             }
