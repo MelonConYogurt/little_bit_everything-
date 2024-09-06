@@ -4,18 +4,98 @@
     <meta charset="UTF-8">
     <title>Información del Empleado</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
         label {
             display: block;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #34495e;
         }
+
         input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        input[readonly] {
+            background-color: #e9ecef;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button[type="submit"] {
+            background-color: #2ecc71;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
             margin-top: 5px;
         }
+
+        .radio-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+        }
+
     </style>
 </head>
 <body>
-    <h2>INFORMACIÓN DEL EMPLEADO</h2>
     <form id="empleadoForm">
+        <h2>INFORMACIÓN DEL EMPLEADO</h2>
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" pattern="^\S.*" required>
 
@@ -23,8 +103,10 @@
         <input type="number" id="estatura" name="estatura" step="0.01" required>
 
         <label>Sexo:</label>
-        <input type="radio" id="sexoM" name="sexo" value="M" required> M
-        <input type="radio" id="sexoF" name="sexo" value="F" required> F
+        <div class="radio-group">
+            <label><input type="radio" id="sexoM" name="sexo" value="M" required> Masculino</label>
+            <label><input type="radio" id="sexoF" name="sexo" value="F" required> Femenino</label>
+        </div>
 
         <label for="salario">Salario:</label>
         <input type="number" id="salario" name="salario" step="0.01" required>
@@ -63,6 +145,7 @@
             if (!isNaN(salario) && !isNaN(diasTrabajados)) {
                 const salarioPagar = (salario / 30) * diasTrabajados;
                 document.getElementById('salarioPagar').value = salarioPagar.toFixed(2);
+                alert(`Datos obtenidos correctamente, salario a pagar: ${salario}`)
             } else {
                 alert("Por favor, ingrese valores válidos para el salario y los días trabajados.");
             }

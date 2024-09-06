@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facultad de Ciencias Básicas e Ingeniería - CUR</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header {
+        background-color: #004080;
+        color: white;
+        width: 100%;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    #imagen-principal img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        margin: 20px 0;
+    }
+
+    #menu-vertical {
+        width: 100%;
+        margin: 20px;
+        text-align: center;
+    }
+
+    #menu-vertical ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #menu-vertical ul li a {
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        background-color: #004080;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+
+    #menu-vertical ul li a:hover {
+        background-color: #0066cc;
+    }
+
+
+    main {
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    h2 {
+        color: #004080;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form label {
+        margin-top: 10px;
+    }
+
+    form input,
+    form select,
+    form textarea,
+    form button {
+        margin-top: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    form button {
+        background-color: #004080;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #0066cc;
+    }
+</style>
+
+<body>
+    <header>
+        <h1>Facultad de Ciencias Básicas e Ingeniería</h1>
+    </header>
+
+    <section id="imagen-principal">
+        <img src="https://www.uniremington.edu.co/wp-content/uploads/2022/03/Logo-Uniremington.jpg"
+            alt="Facultad de Ciencias Básicas e Ingeniería">
+    </section>
+
+    <nav id="menu-vertical">
+        <ul>
+            <li><a href="#tecnicos">Programas Técnicos</a></li>
+            <li><a href="#tecnologicos">Programas Tecnológicos</a></li>
+            <li><a href="#ingenierias">Ingenierías</a></li>
+            <li><a href="#especializaciones">Especializaciones</a></li>
+            <li><a href="#inscripcion">Inscripción</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="tecnicos">
+            <h2>Programas Técnicos</h2>
+            <p>Los programas técnicos están diseñados para brindar una formación práctica en áreas específicas como
+                soporte técnico, desarrollo de software y mantenimiento de equipos. Estos programas tienen una duración
+                corta y están orientados a la inserción rápida en el mercado laboral.</p>
+        </section>
+
+        <section id="tecnologicos">
+            <h2>Programas Tecnológicos</h2>
+            <p>Los programas tecnológicos ofrecen una formación más avanzada que los programas técnicos, enfocándose en
+                el desarrollo de competencias especializadas en campos como la programación, la gestión de redes y la
+                automatización industrial. Son ideales para quienes buscan mejorar su perfil profesional.</p>
+        </section>
+
+        <section id="ingenierias">
+            <h2>Ingenierías</h2>
+            <p>Nuestras ingenierías cubren áreas como Ingeniería de Sistemas, Ingeniería Electrónica e Ingeniería
+                Industrial. Estos programas tienen un enfoque teórico-práctico, preparando a los estudiantes para
+                enfrentar los desafíos tecnológicos de la actualidad, con énfasis en la innovación y el desarrollo
+                sostenible.</p>
+        </section>
+
+        <section id="especializaciones">
+            <h2>Especializaciones</h2>
+            <p>Las especializaciones están dirigidas a profesionales que desean profundizar en áreas específicas de su
+                campo. Ofrecemos programas en gestión de proyectos tecnológicos, seguridad informática y automatización,
+                permitiendo a los estudiantes avanzar en su carrera y adquirir conocimientos actualizados.</p>
+        </section>
+
+        <section id="inscripcion">
+            <h2>Formulario de Inscripción</h2>
+            <form>
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="programa">Programa de Interés:</label>
+                <select id="programa" name="programa" required>
+                    <option value="tecnico">Técnico</option>
+                    <option value="tecnologico">Tecnológico</option>
+                    <option value="ingenieria">Ingeniería</option>
+                    <option value="especializacion">Especialización</option>
+                </select>
+
+                <label for="comentarios">Comentarios Adicionales:</label>
+                <textarea id="comentarios" name="comentarios"></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
