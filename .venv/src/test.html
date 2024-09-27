@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Blog para Programadores</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+</head>
+<body>
+    <h1>Crear Blog</h1>
+
+    <form action="/crear-blog" method="POST" enctype="multipart/form-data">
+        <!-- Título del blog -->
+        <label for="titulo">Título del Blog:</label>
+        <input type="text" id="titulo" name="titulo" required><br><br>
+
+        <!-- Contenido con CKEditor -->
+        <label for="contenido">Contenido:</label>
+        <textarea id="contenido" name="contenido"></textarea><br><br>
+
+        <!-- Imágenes -->
+        <label for="imagen">Subir imágenes:</label>
+        <input type="file" id="imagen" name="imagenes[]" multiple><br><br>
+
+        <!-- Botón para enviar -->
+        <button type="submit">Crear Blog</button>
+    </form>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#contenido'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+</body>
+</html>
