@@ -3,7 +3,19 @@
 import {useState, useEffect} from "react";
 import {getDataBooks, Book} from "@/utils/get";
 
-export default function Table() {
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {BookOpen, Plus, Search} from "lucide-react";
+
+export default function TableBooks() {
   const [data, setData] = useState<Book[]>([]); // Tipado del estado
 
   useEffect(() => {
@@ -17,38 +29,65 @@ export default function Table() {
   }, []);
 
   return (
-    <div className="bg-white flex flex-col justify-center items-center w-96 h-96 p-4">
-      <h1 className="text-black text-3xl mb-4">Tabla de Libros</h1>
-      {data.length > 0 ? (
-        <table className="table-auto border-collapse border border-gray-300 w-full text-sm text-left">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 px-4 py-2">Nombre</th>
-              <th className="border border-gray-300 px-4 py-2">Autor</th>
-              <th className="border border-gray-300 px-4 py-2">Edad</th>
-              <th className="border border-gray-300 px-4 py-2">ISBN</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((book, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="border border-gray-300 px-4 py-2">
-                  {book.name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {book.author}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">{book.age}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {book.isbn}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p className="text-gray-500">No hay datos disponibles</p>
-      )}
+    <div className="flex flex-col min-h-screen">
+      <header className="border-b">
+        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <BookOpen className="h-6 w-6" />
+            Biblioteca Moderna
+          </h1>
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Input className="pl-8" placeholder="Buscar libros..." />
+            </div>
+            <Button>
+              <Plus className="mr-2 h-4 w-4" /> Añadir Libro
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <main className="flex-grow container mx-auto px-4 py-8">
+        <div className="rounded-lg border shadow-sm">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nombre</TableHead>
+                <TableHead>Año</TableHead>
+                <TableHead>Autor</TableHead>
+                <TableHead>ISBN</TableHead>
+                <TableHead>Estado</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.length > 0 ? (
+                data.map((book, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{book.name}</TableCell>
+                    <TableCell>{book.age}</TableCell>
+                    <TableCell>{book.author}</TableCell>
+                    <TableCell>{book.isbn}</TableCell>
+                    <TableCell>
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+                        Disponible
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow></TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </main>
+
+      <footer className="border-t">
+        <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-500">
+          © 2025 Biblioteca Moderna. Todos los derechos reservados.
+        </div>
+      </footer>
     </div>
   );
 }
