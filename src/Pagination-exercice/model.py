@@ -6,7 +6,7 @@ class Book(BaseModel):
     author: str
     isbn: str
 
-class Books(Book):
+class Books(BaseModel):
     data: list[Book]
     
     

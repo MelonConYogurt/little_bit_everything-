@@ -12,8 +12,8 @@ class Book:
     
     
 class Database:
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, config: any = None):
+        self.config = config or load_config()
         self.connection = self.connect()
 
     def connect(self):
@@ -54,12 +54,11 @@ class Database:
         
 
 if __name__ == '__main__':
-    config = load_config()
-    conection = Database(config)
-    
+    conection = Database()
     if conection:
         # for _ in range(100):
         #     data = Book()
         #     conection.insert(data=data)
-        data = conection.get(limit= 10, offset=10)
-        print(data)
+        # rows = conection.get(limit= 10, offset=10)
+        pass
+        
