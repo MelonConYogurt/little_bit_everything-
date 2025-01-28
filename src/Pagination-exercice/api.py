@@ -29,11 +29,11 @@ async def redirect_to_docs():
     return RedirectResponse(url="/docs")
 
 @app.get("/books/", response_model= Books )
-async def get_book_data():
+async def get_book_data(limit: int, offset: int):
     try:
         list_of_books =[]
         conection = Database()
-        books_data = conection.get(limit=22, offset=25)
+        books_data = conection.get(limit=limit, offset=offset)
         if books_data:
             for book in books_data:
                 list_of_books.append(Book(name=book[1], author=book[2], age=book[3], isbn=book[4]))

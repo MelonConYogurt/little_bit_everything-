@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {BookOpen, Plus, Search} from "lucide-react";
+import {BookOpen, Search} from "lucide-react";
 
 export default function TableBooks() {
   const [data, setData] = useState<Book[]>([]); // Tipado del estado
@@ -36,14 +36,19 @@ export default function TableBooks() {
             <BookOpen className="h-6 w-6" />
             Biblioteca Moderna
           </h1>
+          <div className="flex justify-center items-center gap-2">
+            <Button>Atras</Button>
+            <p>
+              Pagina actual: {} / de {}
+            </p>
+            <Button>Adelante</Button>
+          </div>
           <div className="flex items-center gap-4">
-            <div className="relative">
+            <div className="relative flex gap-2 mx-5">
               <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <Input className="pl-8" placeholder="Buscar libros..." />
+              <Button>Aceptar</Button>
             </div>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" /> Añadir Libro
-            </Button>
           </div>
         </div>
       </header>
