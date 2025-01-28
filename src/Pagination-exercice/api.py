@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
-from model  import Book, Books
+from model  import Book, Books, Count
 from connect import Database
 
 origins = [
@@ -41,3 +41,13 @@ async def get_book_data(limit: int, offset: int):
     except Exception as e:
         print(e)
         return Books(data=[])
+    
+@app.get("/count/", response_model= Count )
+async def get_count():
+    try:
+        conection = Database()
+        count = conection.count()
+        return Count(pages=count[0])
+    except Exception as e:
+        print(e)
+        

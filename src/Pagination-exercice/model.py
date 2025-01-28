@@ -5,6 +5,9 @@ class Book(BaseModel):
     age: int
     author: str
     isbn: str
+    
+class Count(BaseModel):
+    pages: int
 
 class Books(BaseModel):
     data: list[Book]

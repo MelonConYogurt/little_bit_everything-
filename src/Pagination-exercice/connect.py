@@ -51,6 +51,22 @@ class Database:
                     return rows
         except Exception as e:
             print(e)
+            
+    def count(self)-> int:
+        try:
+            if self.connection:
+                with self.connection.cursor() as cur:
+                    sql_query="""
+                    SELECT COUNT(*) AS total
+                    FROM public.books;
+                    """
+                    cur.execute(sql_query,())
+                    count = cur.fetchone()
+                    return count
+        except Exception as e:
+            print(e)
+            
+        
         
 
 if __name__ == '__main__':
@@ -60,5 +76,6 @@ if __name__ == '__main__':
         #     data = Book()
         #     conection.insert(data=data)
         # rows = conection.get(limit= 10, offset=10)
+        # count = conection.count()
+        # print(count[0])
         pass
-        
