@@ -87,18 +87,9 @@ export default function TableBooks() {
         </div>
       </header>
 
-      <div className="w-40 mx-10 my-5 ">
-        <Input
-          onChange={(e) => fetchDataSearch(e.target.value)}
-          className="border-gray-500"
-          type="text"
-          placeholder="Search 🔎"
-        ></Input>
-      </div>
-
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-6  ">
             <div className="flex items-center gap-4">
               <Button
                 variant="outline"
@@ -129,6 +120,14 @@ export default function TableBooks() {
               >
                 Siguiente <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
+            </div>
+            <div className="w-40 mx-10 my-5 ">
+              <Input
+                onChange={(e) => fetchDataSearch(e.target.value)}
+                className="border-gray-500"
+                type="text"
+                placeholder="Search 🔎"
+              ></Input>
             </div>
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600">
