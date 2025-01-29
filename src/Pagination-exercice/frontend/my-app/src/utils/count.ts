@@ -13,7 +13,6 @@ export async function getCount() {
     }
     {
       const json = await response.json();
-      console.log(`El numero total de paginas es ${json.pages}`);
       return json;
     }
   } catch (error) {

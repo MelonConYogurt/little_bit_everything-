@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import {BookOpen, ChevronLeft, ChevronRight} from "lucide-react";
 import {getCount} from "@/utils/count";
+import {getDataBooksSearch} from "@/utils/getSearch";
 
 export default function TableBooks() {
   const [data, setData] = useState<Book[]>([]);
@@ -66,6 +67,15 @@ export default function TableBooks() {
     }
   }
 
+  async function fetchDataSearch(search: string) {
+    const json = await getDataBooksSearch(limit, offset, search);
+    setIsLoading(true);
+    if (json?.data) {
+      setData(json.data);
+    }
+    setIsLoading(false);
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <header className="bg-white shadow">
@@ -76,6 +86,15 @@ export default function TableBooks() {
           </h1>
         </div>
       </header>
+
+      <div className="w-40 mx-10 my-5 ">
+        <Input
+          onChange={(e) => fetchDataSearch(e.target.value)}
+          className="border-gray-500"
+          type="text"
+          placeholder="Search 🔎"
+        ></Input>
+      </div>
 
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-md p-6">

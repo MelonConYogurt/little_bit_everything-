@@ -37,7 +37,7 @@ async def get_book_data(limit: int, offset: int):
         if books_data:
             for book in books_data:
                 list_of_books.append(Book(name=book[1], author=book[2], age=book[3], isbn=book[4]))
-            return Books(data=list_of_books)        
+        return Books(data=list_of_books)        
     except Exception as e:
         print(e)
         return Books(data=[])
@@ -52,7 +52,7 @@ async def get_book_data_search_by_name(limit: int, offset: int, search: str):
         if books_data:
             for book in books_data:
                 list_of_books.append(Book(name=book[1], author=book[2], age=book[3], isbn=book[4]))
-            return Books(data=list_of_books)        
+        return Books(data=list_of_books)        
     except Exception as e:
         print(e)
         return Books(data=[])
