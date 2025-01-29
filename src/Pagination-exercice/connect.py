@@ -44,11 +44,26 @@ class Database:
             if self.connection:
                 with self.connection.cursor() as cur:
                     sql_query="""
-                    SELECT * FROM public.books LIMIT %s OFFSET %s
+                    SELECT * FROM public.books LIMIT %s OFFSET %s 
                     """
                     cur.execute(sql_query, (limit, offset))
                     rows = cur.fetchall()
                     return rows
+        except Exception as e:
+            print(e)
+            
+    def get_search_by_name(self, limit: int = 0, offset: int = 0, search: str = None)-> list:
+        try:
+            print(f"Searching for books with name containing: {search}")
+            if search != None:
+                if self.connection:
+                    with self.connection.cursor() as cur:
+                        sql_query = """
+                        SELECT * FROM public.books WHERE "name" ILIKE %s LIMIT %s OFFSET %s
+                        """
+                        cur.execute(sql_query, (f"%{search}%", limit, offset))
+                        rows = cur.fetchall()
+                        return rows
         except Exception as e:
             print(e)
             

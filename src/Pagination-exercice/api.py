@@ -41,6 +41,21 @@ async def get_book_data(limit: int, offset: int):
     except Exception as e:
         print(e)
         return Books(data=[])
+
+
+@app.get("/books/search", response_model= Books )
+async def get_book_data_search_by_name(limit: int, offset: int, search: str):
+    try:
+        list_of_books =[]
+        conection = Database()
+        books_data = conection.get_search_by_name(limit=limit, offset=offset, search=search)
+        if books_data:
+            for book in books_data:
+                list_of_books.append(Book(name=book[1], author=book[2], age=book[3], isbn=book[4]))
+            return Books(data=list_of_books)        
+    except Exception as e:
+        print(e)
+        return Books(data=[])
     
 @app.get("/count/", response_model= Count )
 async def get_count():
