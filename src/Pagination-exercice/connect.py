@@ -52,6 +52,21 @@ class Database:
         except Exception as e:
             print(e)
             return []
+        
+    def get_test(self, limit: int = 0, offset: int = 0, name: bool = False, age: bool = False, author: bool = False, isbn: bool = False )-> list:
+        try:
+            if self.connection:
+                with self.connection.cursor() as cur:
+                    
+                    sql_query="""
+                    SELECT * FROM public.books LIMIT %s OFFSET %s 
+                    """
+                    cur.execute(sql_query, (limit, offset))
+                    rows = cur.fetchall()
+                    return rows if rows else []
+        except Exception as e:
+            print(e)
+            return []
             
     def get_search_by_name(self, limit: int = 0, offset: int = 0, search: str = None)-> list:
         try:
