@@ -9,8 +9,15 @@ export interface Books {
   data: Book[];
 }
 
-export async function getDataBooks(limit: number = 10, offset: number = 0) {
-  const url = `http://localhost:8000/books/?limit=${limit}&offset=${offset}`;
+export async function getDataBooks(
+  name: boolean,
+  age: boolean,
+  author: boolean,
+  isbn: boolean,
+  limit: number = 10,
+  offset: number = 0
+) {
+  const url = `http://localhost:8000/books/filter/?limit=${limit}&offset=${offset}&name=${name}&age=${age}&author=${author}&isbn=${isbn}`;
   try {
     const response = await fetch(url, {
       method: "GET",

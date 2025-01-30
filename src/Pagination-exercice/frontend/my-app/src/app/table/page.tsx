@@ -12,9 +12,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {BookOpen, ChevronLeft, ChevronRight} from "lucide-react";
+import {
+  BookOpen,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
 import {getCount} from "@/utils/count";
 import {getDataBooksSearch} from "@/utils/getSearch";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function TableBooks() {
   const [data, setData] = useState<Book[]>([]);
@@ -23,18 +35,31 @@ export default function TableBooks() {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [filter, setFilter] = useState({
+    name: false,
+    age: false,
+    author: false,
+    isbn: false,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const dataOfBooks = await getDataBooks(limit, offset);
+      const dataOfBooks = await getDataBooks(
+        filter.name,
+        filter.age,
+        filter.author,
+        filter.isbn,
+        limit,
+        offset
+      );
       if (dataOfBooks?.data) {
         setData(dataOfBooks.data);
       }
       setIsLoading(false);
     };
     fetchData();
-  }, [limit, offset]);
+  }, [limit, offset, filter]);
 
   useEffect(() => {
     const fetchCount = async () => {
@@ -154,10 +179,115 @@ export default function TableBooks() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="font-semibold">Nombre</TableHead>
-                  <TableHead className="font-semibold">Año</TableHead>
-                  <TableHead className="font-semibold">Autor</TableHead>
-                  <TableHead className="font-semibold">ISBN</TableHead>
+                  <TableHead className="font-semibold">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              setFilter((prev) => ({
+                                ...prev,
+                                name: !prev.name,
+                              }))
+                            }
+                          >
+                            Nombre
+                            {filter.name ? (
+                              <ChevronDown className="ml-1 h-4 w-4" />
+                            ) : (
+                              <ChevronUp className="ml-1 h-4 w-4" />
+                            )}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Ordenar por nombre</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </TableHead>
+                  <TableHead className="font-semibold">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              setFilter((prev) => ({...prev, age: !prev.age}))
+                            }
+                          >
+                            Año
+                            {filter.age ? (
+                              <ChevronDown className="ml-1 h-4 w-4" />
+                            ) : (
+                              <ChevronUp className="ml-1 h-4 w-4" />
+                            )}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Ordenar por año</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </TableHead>
+                  <TableHead className="font-semibold">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              setFilter((prev) => ({
+                                ...prev,
+                                author: !prev.author,
+                              }))
+                            }
+                          >
+                            Autor
+                            {filter.author ? (
+                              <ChevronDown className="ml-1 h-4 w-4" />
+                            ) : (
+                              <ChevronUp className="ml-1 h-4 w-4" />
+                            )}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Ordenar por autor</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </TableHead>
+                  <TableHead className="font-semibold">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              setFilter((prev) => ({
+                                ...prev,
+                                isbn: !prev.isbn,
+                              }))
+                            }
+                          >
+                            ISBN
+                            {filter.isbn ? (
+                              <ChevronDown className="ml-1 h-4 w-4" />
+                            ) : (
+                              <ChevronUp className="ml-1 h-4 w-4" />
+                            )}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Ordenar por ISBN</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </TableHead>
                   <TableHead className="font-semibold">Estado</TableHead>
                 </TableRow>
               </TableHeader>

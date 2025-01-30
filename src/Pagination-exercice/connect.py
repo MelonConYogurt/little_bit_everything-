@@ -120,8 +120,6 @@ class Database:
             print(e)
             return []
         
-    
-
 if __name__ == '__main__':
     conection = Database()
     if conection:
