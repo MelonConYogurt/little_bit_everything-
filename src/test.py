@@ -9,4 +9,3 @@ def get_password_hash(password):
 if __name__ == "__main__":
     contrasena = get_password_hash("admin")
     print(contrasena)
-    print("Hola")
