@@ -60,7 +60,7 @@ class Database:
             print(e)
             return []
         
-    def get_filter(self, filter: Filter, limit: int = 0, offset: int = 0)-> list: 
+    def get_filter(self, filter: Filter, limit: int = 0, offset: int = 0, search: str = None)-> list: 
         try:
             if self.connection:
                 with self.connection.cursor() as cur:
@@ -88,10 +88,11 @@ class Database:
                         
                     sql_query=f"""
                     SELECT * FROM public.books
+                    WHERE "name" LIKE %s
                     {filter_string}
                     LIMIT %s OFFSET %s 
                     """
-                    cur.execute(sql_query, (limit, offset))
+                    cur.execute(sql_query, (f"%{search}%", limit, offset))
                     rows = cur.fetchall()
                     return rows if rows else []
         except Exception as e:

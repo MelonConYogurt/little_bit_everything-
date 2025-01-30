@@ -43,11 +43,11 @@ async def get_book_data(limit: int, offset: int):
         return Books(data=[])
 
 @app.get("/books/filter/", response_model= Books )
-async def get_book_data_filter(limit: int, offset: int, name: bool = None, age: bool= None, author: bool= None, isbn: bool= None):
+async def get_book_data_filter(limit: int, offset: int, search: str = "", name: bool = None, age: bool= None, author: bool= None, isbn: bool= None):
     try:
         list_of_books =[]
         conection = Database()
-        books_data = conection.get_filter(limit=limit, offset=offset, filter= Filter(name=name, age=age, author=author, isbn=isbn))
+        books_data = conection.get_filter(limit=limit, search=search, offset=offset, filter= Filter(name=name, age=age, author=author, isbn=isbn))
         if books_data:
             for book in books_data:
                 list_of_books.append(Book(name=book[1], author=book[2], age=book[3], isbn=book[4]))

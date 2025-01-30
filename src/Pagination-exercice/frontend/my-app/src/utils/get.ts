@@ -19,14 +19,17 @@ export interface Filter {
 export async function getDataBooks(
   data: Filter,
   limit: number = 10,
-  offset: number = 0
+  offset: number = 0,
+  search: string = ""
 ) {
   const url =
     `http://localhost:8000/books/filter/?limit=${limit}&offset=${offset}` +
+    (search !== "" ? `&search=${search}` : "") +
     (data.name !== null ? `&name=${data.name}` : "") +
     (data.age !== null ? `&age=${data.age}` : "") +
     (data.author !== null ? `&author=${data.author}` : "") +
     (data.isbn !== null ? `&isbn=${data.isbn}` : "");
+
   try {
     const response = await fetch(url, {
       method: "GET",

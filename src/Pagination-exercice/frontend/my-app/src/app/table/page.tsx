@@ -20,7 +20,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 import {getCount} from "@/utils/count";
-import {getDataBooksSearch} from "@/utils/getSearch";
 import {
   Tooltip,
   TooltipContent,
@@ -35,6 +34,7 @@ export default function TableBooks() {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<Filter>({
     name: null,
     age: null,
@@ -45,14 +45,14 @@ export default function TableBooks() {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const dataOfBooks = await getDataBooks(filter, limit, offset);
+      const dataOfBooks = await getDataBooks(filter, limit, offset, search);
       if (dataOfBooks?.data) {
         setData(dataOfBooks.data);
       }
       setIsLoading(false);
     };
     fetchData();
-  }, [limit, offset, filter]);
+  }, [limit, offset, filter, search]);
 
   useEffect(() => {
     const fetchCount = async () => {
@@ -83,15 +83,6 @@ export default function TableBooks() {
       setPage(page);
       setOffset((page - 1) * limit);
     }
-  }
-
-  async function fetchDataSearch(search: string) {
-    const json = await getDataBooksSearch(limit, offset, search);
-    setIsLoading(true);
-    if (json?.data) {
-      setData(json.data);
-    }
-    setIsLoading(false);
   }
 
   return (
@@ -141,7 +132,7 @@ export default function TableBooks() {
             </div>
             <div className="w-40 mx-10 my-5 ">
               <Input
-                onChange={(e) => fetchDataSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 className="border-gray-500"
                 type="text"
                 placeholder="Search 🔎"
