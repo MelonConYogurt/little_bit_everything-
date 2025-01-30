@@ -103,7 +103,7 @@ class Database:
 if __name__ == '__main__':
     conection = Database()
     if conection:
-        # for _ in range(100):
+        # for _ in range(300):
         #     data = Book()
         #     conection.insert(data=data)
         # rows = conection.get(limit= 10, offset=10)
