@@ -43,7 +43,7 @@ async def get_book_data(limit: int, offset: int):
         return Books(data=[])
 
 @app.get("/books/filter/", response_model= Books )
-async def get_book_data_filter(limit: int, offset: int, name: bool = False, age: bool= False, author: bool= False, isbn: bool= False):
+async def get_book_data_filter(limit: int, offset: int, name: bool = None, age: bool= None, author: bool= None, isbn: bool= None):
     try:
         list_of_books =[]
         conection = Database()

@@ -7,10 +7,10 @@ class Book(BaseModel):
     isbn: str
     
 class Filter(BaseModel):
-    name: bool = False
-    age: bool = False
-    author: bool = False
-    isbn: bool = False
+    name: bool | None
+    age: bool | None
+    author: bool | None
+    isbn: bool | None
     
 class Count(BaseModel):
     pages: int

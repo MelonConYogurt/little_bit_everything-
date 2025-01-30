@@ -9,24 +9,15 @@ export interface Books {
   data: Book[];
 }
 
-export interface Filter {
-  name: boolean | null;
-  age: boolean | null;
-  author: boolean | null;
-  isbn: boolean | null;
-}
-
 export async function getDataBooks(
-  data: Filter,
+  name: boolean,
+  age: boolean,
+  author: boolean,
+  isbn: boolean,
   limit: number = 10,
   offset: number = 0
 ) {
-  const url =
-    `http://localhost:8000/books/filter/?limit=${limit}&offset=${offset}` +
-    (data.name !== null ? `&name=${data.name}` : "") +
-    (data.age !== null ? `&age=${data.age}` : "") +
-    (data.author !== null ? `&author=${data.author}` : "") +
-    (data.isbn !== null ? `&isbn=${data.isbn}` : "");
+  const url = `http://localhost:8000/books/filter/?limit=${limit}&offset=${offset}&name=${name}&age=${age}&author=${author}&isbn=${isbn}`;
   try {
     const response = await fetch(url, {
       method: "GET",

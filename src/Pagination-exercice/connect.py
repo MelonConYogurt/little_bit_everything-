@@ -12,7 +12,7 @@ class Book:
         self.isbn = isbn or faker.isbn10()
         
 class Filter:
-    def __init__(self, name: bool = False, age: bool = False, author: bool = False, isbn: bool = False):
+    def __init__(self, name: bool = None, age: bool = None, author: bool = None, isbn: bool = None):
         self.name = name
         self.age = age
         self.author = author
@@ -66,15 +66,23 @@ class Database:
                 with self.connection.cursor() as cur:
                     filter_string = ""
                     list_of_filters = []
-                    if filter.name:
-                        list_of_filters.append("name")
-                    if filter.age:
-                        list_of_filters.append("age")
-                    if filter.author:
-                        list_of_filters.append("author")
-                    if filter.isbn:
-                        list_of_filters.append("isbn")
-                    
+                    if filter.name is True:
+                        list_of_filters.append("name ASC")
+                    elif filter.name is False:
+                        list_of_filters.append("name DESC")
+                    if filter.age is True:
+                        list_of_filters.append("age ASC")
+                    elif filter.age is False:
+                        list_of_filters.append("age DESC")
+                    if filter.author is True:
+                        list_of_filters.append("author ASC")
+                    elif filter.author is False:
+                        list_of_filters.append("author DESC")
+                    if filter.isbn is True:
+                        list_of_filters.append("isbn ASC")
+                    elif filter.isbn is False:
+                        list_of_filters.append("isbn DESC")
+            
                     if list_of_filters:
                         filter_string = "ORDER BY " + ",".join(list_of_filters)
                         

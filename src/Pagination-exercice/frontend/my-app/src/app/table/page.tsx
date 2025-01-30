@@ -1,7 +1,7 @@
 "use client";
 
 import {useState, useEffect} from "react";
-import {getDataBooks, type Book} from "@/utils/get";
+import {Filter, getDataBooks, type Book} from "@/utils/get";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {
@@ -35,24 +35,17 @@ export default function TableBooks() {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [filter, setFilter] = useState({
-    name: false,
-    age: false,
-    author: false,
-    isbn: false,
+  const [filter, setFilter] = useState<Filter>({
+    name: null,
+    age: null,
+    author: null,
+    isbn: null,
   });
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const dataOfBooks = await getDataBooks(
-        filter.name,
-        filter.age,
-        filter.author,
-        filter.isbn,
-        limit,
-        offset
-      );
+      const dataOfBooks = await getDataBooks(filter, limit, offset);
       if (dataOfBooks?.data) {
         setData(dataOfBooks.data);
       }
