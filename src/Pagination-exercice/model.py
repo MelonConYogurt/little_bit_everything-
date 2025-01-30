@@ -6,6 +6,12 @@ class Book(BaseModel):
     author: str
     isbn: str
     
+class Filter(BaseModel):
+    name: bool = False
+    age: bool = False
+    author: bool = False
+    isbn: bool = False
+    
 class Count(BaseModel):
     pages: int
 

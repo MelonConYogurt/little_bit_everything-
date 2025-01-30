@@ -3,13 +3,20 @@ from faker import Faker
 from config import load_config
 
 faker = Faker()
+
 class Book:
     def __init__(self, name: str = None, age: int = None, author: str = None, isbn: str = None):
         self.name = name or faker.word()
         self.age = age or faker.random_int(min=1, max=100)
         self.author = author or faker.name()
         self.isbn = isbn or faker.isbn10()
-    
+        
+class Filter:
+    def __init__(self, name: bool = False, age: bool = False, author: bool = False, isbn: bool = False):
+        self.name = name
+        self.age = age
+        self.author = author
+        self.isbn = isbn
     
 class Database:
     def __init__(self, config: any = None):
@@ -53,13 +60,28 @@ class Database:
             print(e)
             return []
         
-    def get_test(self, limit: int = 0, offset: int = 0, name: bool = False, age: bool = False, author: bool = False, isbn: bool = False )-> list:
+    def get_filter(self, filter: Filter, limit: int = 0, offset: int = 0)-> list: 
         try:
             if self.connection:
                 with self.connection.cursor() as cur:
+                    filter_string = ""
+                    list_of_filters = []
+                    if filter.name:
+                        list_of_filters.append("name")
+                    if filter.age:
+                        list_of_filters.append("age")
+                    if filter.author:
+                        list_of_filters.append("author")
+                    if filter.isbn:
+                        list_of_filters.append("isbn")
                     
-                    sql_query="""
-                    SELECT * FROM public.books LIMIT %s OFFSET %s 
+                    if list_of_filters:
+                        filter_string = "ORDER BY " + ",".join(list_of_filters)
+                        
+                    sql_query=f"""
+                    SELECT * FROM public.books
+                    {filter_string}
+                    LIMIT %s OFFSET %s 
                     """
                     cur.execute(sql_query, (limit, offset))
                     rows = cur.fetchall()
