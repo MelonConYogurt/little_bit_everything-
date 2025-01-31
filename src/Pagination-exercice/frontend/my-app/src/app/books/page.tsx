@@ -1,6 +1,8 @@
 "use client";
 
 import {useState, useEffect} from "react";
+import {useSearchParams} from "next/navigation";
+import {useRouter} from "next/navigation";
 import {Filter, getDataBooks, type Book} from "@/utils/get";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
@@ -28,18 +30,41 @@ import {
 } from "@/components/ui/tooltip";
 
 export default function TableBooks() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const [data, setData] = useState<Book[]>([]);
   const [count, setCount] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(
+    searchParams.get("limit") !== null ? Number(searchParams.get("limit")) : 10
+  );
   const [offset, setOffset] = useState(0);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    searchParams.get("page") !== null ? Number(searchParams.get("page")) : 1
+  );
   const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(
+    searchParams.get("search") !== null
+      ? String(searchParams.get("search"))
+      : ""
+  );
   const [filter, setFilter] = useState<Filter>({
-    name: null,
-    age: null,
-    author: null,
-    isbn: null,
+    name:
+      searchParams.get("name") !== null
+        ? Boolean(searchParams.get("name"))
+        : null,
+    age:
+      searchParams.get("age") !== null
+        ? Boolean(searchParams.get("age"))
+        : null,
+    author:
+      searchParams.get("author") !== null
+        ? Boolean(searchParams.get("author"))
+        : null,
+    isbn:
+      searchParams.get("isbn") !== null
+        ? Boolean(searchParams.get("isbn"))
+        : null,
   });
 
   useEffect(() => {
@@ -66,6 +91,7 @@ export default function TableBooks() {
     setPage((prev) => {
       const newPage = prev + 1;
       setOffset((newPage - 1) * limit);
+      router.push(`?page=${newPage}`);
       return newPage;
     });
   }
@@ -74,6 +100,7 @@ export default function TableBooks() {
     setPage((prev) => {
       const newPage = prev - 1;
       setOffset((newPage - 1) * limit);
+      router.push(`?page=${newPage}`);
       return newPage;
     });
   }
@@ -132,10 +159,14 @@ export default function TableBooks() {
             </div>
             <div className="w-40 mx-10 my-5 ">
               <Input
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  router.push(`search=${e.target.value}`);
+                }}
                 className="border-gray-500"
                 type="text"
-                placeholder="Search 🔎"
+                value={search}
+                placeholder="Search by name 🔎"
               ></Input>
             </div>
             <div className="flex items-center gap-4">
